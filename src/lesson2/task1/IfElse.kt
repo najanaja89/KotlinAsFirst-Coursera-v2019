@@ -4,6 +4,7 @@ package lesson2.task1
 
 import lesson1.task1.discriminant
 import kotlin.math.max
+import kotlin.math.pow
 import kotlin.math.sqrt
 
 /**
@@ -63,7 +64,14 @@ fun minBiRoot(a: Double, b: Double, c: Double): Double {
  * Мой возраст. Для заданного 0 < n < 200, рассматриваемого как возраст человека,
  * вернуть строку вида: «21 год», «32 года», «12 лет».
  */
-fun ageDescription(age: Int): String = TODO()
+fun ageDescription(age: Int): String {
+    return when {
+        age / 10 % 10 == 1 -> "$age лет"
+        age % 10 == 1 -> "$age год"
+        age / 10 % 10 == 9 -> "$age лет"
+        else -> "$age года"
+    }
+}
 
 /**
  * Простая
@@ -117,7 +125,19 @@ fun rookOrBishopThreatens(
  * прямоугольным (вернуть 1) или тупоугольным (вернуть 2).
  * Если такой треугольник не существует, вернуть -1.
  */
-fun triangleKind(a: Double, b: Double, c: Double): Int = TODO()
+fun triangleKind(a: Double, b: Double, c: Double): Int {
+
+    val array = arrayOf(a, b, c)
+    array.sortDescending()
+    val minSide = array[2]
+    val maxSide = array[0]
+    val midSide = array[1]
+
+    return if (maxSide >= (minSide + midSide)) -1
+    else if (maxSide.pow(2) > minSide.pow(2) + midSide.pow(2)) 2
+    else if (maxSide.pow(2) < minSide.pow(2) + midSide.pow(2)) 0
+    else 1
+}
 
 /**
  * Средняя
