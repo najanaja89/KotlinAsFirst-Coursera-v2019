@@ -175,7 +175,18 @@ fun revert(n: Int): Int = TODO()
  *
  * Использовать операции со строками в этой задаче запрещается.
  */
-fun isPalindrome(n: Int): Boolean = TODO()
+fun isPalindrome(n: Int): Boolean {
+    var temp = 0
+    temp = n
+    val intList = mutableListOf<Int>()
+    do {
+        intList.add(temp % 10)
+        temp /= 10;
+    } while (temp > 0);
+    val reserveList = intList.asReversed()
+    if (reserveList == intList) return true
+    return false
+}
 
 /**
  * Средняя
