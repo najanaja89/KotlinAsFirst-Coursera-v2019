@@ -147,7 +147,17 @@ fun whoAreInBoth(a: List<String>, b: List<String>): List<String> = TODO()
  *     mapOf("Emergency" to "911", "Police" to "02")
  *   ) -> mapOf("Emergency" to "112, 911", "Police" to "02")
  */
-fun mergePhoneBooks(mapA: Map<String, String>, mapB: Map<String, String>): Map<String, String> = TODO()
+fun mergePhoneBooks(mapA: Map<String, String>, mapB: Map<String, String>): Map<String, String> {
+
+    val unionList2 = (mapA.asSequence() + mapB.asSequence())
+        .distinct()
+        .groupBy({ it.key }, { it.value })
+        .mapValues { (_, values) -> values.joinToString(", ") }
+//    val unionList = mapA.asSequence() + mapB.asSequence()
+//    val unionListDistinct = unionList.distinct()
+    return unionList2
+}
+
 
 /**
  * Средняя
@@ -160,6 +170,7 @@ fun mergePhoneBooks(mapA: Map<String, String>, mapB: Map<String, String>): Map<S
  *     -> mapOf("MSFT" to 150.0, "NFLX" to 40.0)
  */
 fun averageStockPrice(stockPrices: List<Pair<String, Double>>): Map<String, Double> = TODO()
+
 
 /**
  * Средняя
@@ -187,7 +198,19 @@ fun findCheapestStuff(stuff: Map<String, Pair<String, Double>>, kind: String): S
  * Например:
  *   canBuildFrom(listOf('a', 'b', 'o'), "baobab") -> true
  */
-fun canBuildFrom(chars: List<Char>, word: String): Boolean = TODO()
+fun canBuildFrom(chars: List<Char>, word: String): Boolean {
+
+    val mapOfWords = word.toList().map { it to it }.toMap().toSortedMap()
+
+//    val unionList2 = (mapA.asSequence() + mapB.asSequence())
+//        .distinct()
+//        .groupBy({ it.key }, { it.value })
+//        .mapValues { (_, values) -> values.joinToString(", ") }
+    val list1 = chars
+    val list2 = mapOfWords.keys.toList()
+
+    return list1 == list2
+}
 
 /**
  * Средняя
