@@ -2,6 +2,9 @@
 
 package lesson6.task1
 
+import java.time.YearMonth
+
+
 /**
  * Пример
  *
@@ -69,7 +72,30 @@ fun main() {
  * Обратите внимание: некорректная с точки зрения календаря дата (например, 30.02.2009) считается неверными
  * входными данными.
  */
-fun dateStrToDigit(str: String): String = TODO()
+fun dateStrToDigit(str: String): String {
+    val newMonths = arrayOf(
+        "января", "февраля", "марта", "апреля", "мая", "июня",
+        "июля", "августа", "сентября", "октября", "ноября", "декабря"
+    )
+    try {
+        val parsedList = str.split(" ")
+        if (parsedList.size != 3) return ""
+        var monthName = parsedList[1]
+        var date = parsedList[0].toInt()
+        var year = parsedList[2].toInt()
+
+        if (!newMonths.contains(monthName)) return ""
+        val digitMonth = newMonths.indexOfFirst { it.contentEquals(monthName) } + 1
+        val yearMonthObject = YearMonth.of(year, digitMonth)
+        if (!yearMonthObject.isValidDay(date)) return ""
+        return String.format("%02d.%02d.%02d", date, digitMonth, year)
+
+    } catch (e: Throwable) {
+        println(e.message)
+        return ""
+    }
+
+}
 
 /**
  * Средняя
@@ -81,7 +107,29 @@ fun dateStrToDigit(str: String): String = TODO()
  * Обратите внимание: некорректная с точки зрения календаря дата (например, 30 февраля 2009) считается неверными
  * входными данными.
  */
-fun dateDigitToStr(digital: String): String = TODO()
+fun dateDigitToStr(digital: String): String {
+    val newMonths = arrayOf(
+        "января", "февраля", "марта", "апреля", "мая", "июня",
+        "июля", "августа", "сентября", "октября", "ноября", "декабря"
+    )
+    try {
+        val parsedList = digital.split(".")
+        if (parsedList.size != 3) return ""
+        var monthDigit = parsedList[1].toInt()
+        var date = parsedList[0].toInt()
+        var year = parsedList[2].toInt()
+
+        if (monthDigit <= 0 || monthDigit > 12) return ""
+        val stringMonth = newMonths[monthDigit - 1]
+        val yearMonthObject = YearMonth.of(year, monthDigit)
+        if (!yearMonthObject.isValidDay(date)) return ""
+        return String.format("%d %s %02d", date, stringMonth, year)
+
+    } catch (e: Throwable) {
+        println(e.message)
+        return ""
+    }
+}
 
 /**
  * Средняя

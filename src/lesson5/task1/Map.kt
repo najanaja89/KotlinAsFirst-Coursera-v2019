@@ -209,7 +209,7 @@ fun canBuildFrom(chars: List<Char>, word: String): Boolean {
     val list1 = chars
     val list2 = mapOfWords.keys.toList()
 
-    return list1 == list2
+    return list1.toString().equals(list2.toString(), ignoreCase = true)
 }
 
 /**
